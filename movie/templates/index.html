@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>Home</title>
+{% endblock %}
+
+{% block body %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="alert alert-primary">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form class="container" action="{{url_for('register')}}" method="POST">
+                <h2>Register</h2>
+                <div class="form-group">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input class="form-control" type="text" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input  class="form-control" type="password" name="password" required>
+                </div>
+                </div>  
+                <button type="submit" class="btn btn-primary">Submit</button>  
+            </form>
+        </div>
+
+        <div class="col">
+            <form class="container" action="{{url_for('login')}}" method="POST">
+                <h2>Login</h2>
+                <div class="form-group">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input class="form-control" type="text" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input  class="form-control" type="password" name="password" required>
+                </div>
+                </div>  
+                <button type="submit" class="btn btn-primary">Submit</button>  
+            </form>
+        </div>
+    </div>
+</br>
+
+</br>
+    <div class="row">
+    <h2>Add movie</h2> 
+    {% if session.username %}   
+    <form class="container" action="{{ url_for('add_movie')}}" method="POST">
+        <label for="">Title: </label>
+        <input type="text" class="form-control" name="title" required>
+        <label for="">Tag: </label>
+        <input type="text" class="form-control" name="tag"  required>
+        <label for="">text</label>
+        <input type="text" class="form-control" name="text" required>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+    {% endif %}
+    </div>
+    <br>
+    <div class="row container">
+    <table>
+        <tr>
+            
+            <th>title</th>
+            <th>text</th>
+            <th>tags</th>
+        </tr>
+        {% for movie in movies %}
+        <tr>
+           
+            
+            <td>{{ movie[0].title }}</td>
+            <td>{{ movie[0].text }}</td>
+           
+        </tr>
+        {% endfor %}
+    </table>
+    
+</div>
+</div>
+
+
+
+{% endblock %}
